@@ -62,7 +62,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:padding="12dip"
-        android:text="A"
+        android:text="ت"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="#ffffffff"
         app:layout_constraintBottom_toBottomOf="parent"

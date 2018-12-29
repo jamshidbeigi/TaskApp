@@ -19,6 +19,6 @@ public class DesciptionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_item);
+        setContentView(R.layout.item_description);
     }
 }
