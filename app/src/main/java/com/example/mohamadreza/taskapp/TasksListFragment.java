@@ -32,7 +32,7 @@ public class TasksListFragment extends Fragment {
 
     public static TasksListFragment newInstance(int position) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_TAB_POSITION, position);
+        args.putInt(ARG_TAB_POSITION, position);
         TasksListFragment fragment = new TasksListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -60,7 +60,6 @@ public class TasksListFragment extends Fragment {
 //        updateUI();
 //    }
 
-
     private void updateUI() {
         TaskLab taskLab = TaskLab.getInstance();
         List<Task> tasks = taskLab.getCrimes();
@@ -68,11 +67,12 @@ public class TasksListFragment extends Fragment {
             mTaskAdapter = new TaskAdapter(tasks);
             mRecyclerView.setAdapter(mTaskAdapter);
         } else {
+            mTaskAdapter.setCrimes(tasks);
             mTaskAdapter.notifyDataSetChanged();
         }
     }
-
-
+//
+//
     private class TaskHolder extends RecyclerView.ViewHolder {
 
         private TextView mTitleTextView;
@@ -91,35 +91,35 @@ public class TasksListFragment extends Fragment {
             mWordTextView = itemView.findViewById(R.id.text_view_first_word);
 
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-//                    Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_LONG).show();
-                    Intent intent = DesciptionActivity.newIntent(getActivity(), mTask.getId());
-                    startActivity(intent);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                    Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_LONG).show();
+//                    Intent intent = DesciptionActivity.newIntent(getActivity(), mTask.getId());
+//                    startActivity(intent);
+//                }
+//            });
         }
 
         public void bind(Task task) {
             mTask = task;
-
-            int tabPosition = getArguments().getInt(ARG_TAB_POSITION);
-        if(tabPosition==1){
-            if(mTask.isDone()==false)
-            itemView.setVisibility(View.GONE);
-            else
+//            int tabPosition = getArguments().getInt(ARG_TAB_POSITION);
+//        if(tabPosition==1){
+//            if(mTask.isDone()==false)
+//            itemView.setVisibility(View.GONE);
+//            else
+//            mTitleTextView.setText(task.getTitle());
+//            mDateTextView.setText(task.getDate().toString());
+//            mWordTextView.setText(task.getTitle().charAt(0));
+//        }
+//        else {
             mTitleTextView.setText(task.getTitle());
             mDateTextView.setText(task.getDate().toString());
-            mWordTextView.setText(task.getTitle().charAt(0));
-            mIconImageView.setVisibility(VISIBLE);
-        }
-        else {
-            mTitleTextView.setText(task.getTitle());
-            mDateTextView.setText(task.getDate().toString());
-            mWordTextView.setText(task.getTitle().charAt(0));
-            mIconImageView.setVisibility(VISIBLE);
-        }
+            char s=task.getTitle().charAt(0);
+            String str=s+"";
+            mWordTextView.setText(str);
+//            mIconImageView.setVisibility(View.VISIBLE);
+//        }
         }
     }
     private class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {

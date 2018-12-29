@@ -37,7 +37,7 @@ public class TasksActivity extends AppCompatActivity {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return new BlankFragment();
+                return TasksListFragment.newInstance(position);
                 }
 
             @Override
@@ -46,8 +46,7 @@ public class TasksActivity extends AppCompatActivity {
             }
         });
 //        mViewPager.setCurrentItem(0);
-
-
-
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
     }
+
 }
