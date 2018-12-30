@@ -10,17 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mohamadreza.taskapp.models.Task;
 import com.example.mohamadreza.taskapp.models.TaskLab;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.view.View.VISIBLE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,11 +100,10 @@ public class TasksListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(getActivity(), mTask.getTitle() + " clicked!", Toast.LENGTH_LONG).show();
-                    Intent intent = DesciptionActivity.newIntent(getActivity(), mTask.getId());
+                    Intent intent = DescriptionActivity.newIntent(getActivity(), mTask.getId());
                     startActivity(intent);
                 }
             });
-
         }
 
         public void bind(Task task) {
