@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,6 +12,7 @@ import com.example.mohamadreza.taskapp.models.Task;
 import com.example.mohamadreza.taskapp.models.TaskLab;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -40,13 +42,38 @@ public class DescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_description);
 
-        UUID taskId = (UUID) getIntent().getSerializableExtra(EXTRA_TASK_ID_DEC);
-        mTask = TaskLab.getInstance().getTask(taskId);
-
         mTitle=findViewById(R.id.title_text_view);
         mDescription=findViewById(R.id.description_text_view);
         mDate=findViewById(R.id.date_text_view);
         mTime=findViewById(R.id.time_text_view);
+        mEdit=findViewById(R.id.button_edit);
+        mDelete=findViewById(R.id.button_delete);
+
+
+        mEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = AddActivity.newIntent(DescriptionActivity.this, mTask.getId());
+                startActivity(intent);
+            }
+        });
+
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskLab.getInstance().removeTask(mTask);
+                finish();
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UUID taskId = (UUID) getIntent().getSerializableExtra(EXTRA_TASK_ID_DEC);
+        mTask = TaskLab.getInstance().getTask(taskId);
 
         mTitle.setText(mTask.getTitle());
         mDescription.setText(mTask.getDescription());
@@ -55,10 +82,6 @@ public class DescriptionActivity extends AppCompatActivity {
         String pattern = "HH:mm a";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("da", "DK"));
         String time = simpleDateFormat.format(mTask.getDate());
-
         mTime.setText(time);
-
-
-
     }
 }

@@ -53,4 +53,8 @@ public class TaskLab {
         mTasks.add(task);
     }
 
+    public void removeTask(Task task){
+        mTasks.remove(task);
+    }
+
 }
