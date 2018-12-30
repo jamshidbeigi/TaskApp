@@ -12,13 +12,13 @@ public class TaskLab {
 
     private TaskLab() {
         mTasks = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            Task task = new Task();
-            task.setTitle(""+i);
-            task.setDone(i % 2 == 0);
-            task.setDescription("hello"+i);
-            mTasks.add(task);
-        }
+//        for (int i = 0; i < 100; i++) {
+//            Task task = new Task();
+//            task.setTitle(""+i);
+//            task.setDone(i % 2 == 0);
+//            task.setDescription("hello"+i);
+//            mTasks.add(task);
+//        }
     }
 
     public static TaskLab getInstance() {
@@ -28,7 +28,7 @@ public class TaskLab {
         return instance;
     }
 
-    public List<Task> getCrimes() {
+    public List<Task> getTasks() {
         return mTasks;
     }
 
@@ -41,7 +41,7 @@ public class TaskLab {
     }
 
     public int getIndexOfTask(UUID id) {
-        List<Task> tasks = getCrimes();
+        List<Task> tasks = getTasks();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getId().equals(id))
                 return i;

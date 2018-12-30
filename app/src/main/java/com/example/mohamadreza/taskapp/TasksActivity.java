@@ -1,18 +1,23 @@
 package com.example.mohamadreza.taskapp;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.mohamadreza.taskapp.models.Task;
 import com.example.mohamadreza.taskapp.models.TaskLab;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,8 +50,17 @@ public class TasksActivity extends AppCompatActivity {
                 return mTabLayout.getTabCount();
             }
         });
-//        mViewPager.setCurrentItem(0);
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+
+        mAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Task task = new Task();
+                TaskLab.getInstance().addTask(task);
+                Intent intent = AddActivity.newIntent(TasksActivity.this, task.getId());
+                startActivity(intent);
+            }
+        });
     }
 
 }

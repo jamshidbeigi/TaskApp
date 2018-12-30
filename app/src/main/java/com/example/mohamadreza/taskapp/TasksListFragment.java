@@ -57,14 +57,14 @@ public class TasksListFragment extends Fragment {
 
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        updateUI();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
     private void updateUI() {
-        List<Task> tasks = TaskLab.getInstance().getCrimes();
+        List<Task> tasks = TaskLab.getInstance().getTasks();
 
         int tabPosition = getArguments().getInt(ARG_TAB_POSITION);
         if (tabPosition == 1) {
