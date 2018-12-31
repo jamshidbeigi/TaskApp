@@ -1,7 +1,9 @@
 package com.example.mohamadreza.taskapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +14,6 @@ import com.example.mohamadreza.taskapp.models.Task;
 import com.example.mohamadreza.taskapp.models.TaskLab;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -25,7 +26,6 @@ public class DescriptionActivity extends AppCompatActivity {
     private TextView mDescription;
     private TextView mDate;
     private TextView mTime;
-
     private Button mEdit;
     private Button mDelete;
     private Button mDone;
@@ -42,13 +42,13 @@ public class DescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_description);
 
-        mTitle=findViewById(R.id.title_text_view);
-        mDescription=findViewById(R.id.description_text_view);
-        mDate=findViewById(R.id.date_text_view);
-        mTime=findViewById(R.id.time_text_view);
-        mEdit=findViewById(R.id.button_edit);
-        mDelete=findViewById(R.id.button_delete);
-        mDone=findViewById(R.id.button_done);
+        mTitle = findViewById(R.id.title_text_view);
+        mDescription = findViewById(R.id.description_text_view);
+        mDate = findViewById(R.id.date_text_view);
+        mTime = findViewById(R.id.time_text_view);
+        mEdit = findViewById(R.id.button_edit);
+        mDelete = findViewById(R.id.button_delete);
+        mDone = findViewById(R.id.button_done);
 
 
         mEdit.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +62,32 @@ public class DescriptionActivity extends AppCompatActivity {
         mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskLab.getInstance().removeTask(mTask);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(DescriptionActivity.this);
+
+                builder.setTitle("Select your answer.");
+
+                builder.setMessage("Are you sure to delete?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TaskLab.getInstance().removeTask(mTask);
+                        onBackPressed();
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
 
         mDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +95,6 @@ public class DescriptionActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
-
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -81,20 +82,31 @@ public class AddFragment extends Fragment {
 
         mTitleField.setText(mTask.getTitle());
         mDescription.setText(mTask.getDescription());
-        mDateButton.setText(mTask.getDate().toString());
+
+        String simpleDate = getDateString();
+        mDateButton.setText(simpleDate);
+
+        String date = getTimeString();
+        mTimeButton.setText(date.toString());
+
         mSolvedCheckBox.setChecked(mTask.isDone());
 
         mDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                if (mTask.getTitle() != null)
+                    getActivity().finish();
+
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("you dont create a Task!");
+                    builder.setMessage("Write a Title");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
-        String pattern = "HH:mm a";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("da", "DK"));
-        String date = simpleDateFormat.format(mTask.getDate());
-        mTimeButton.setText(date.toString());
 
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -156,7 +168,21 @@ public class AddFragment extends Fragment {
                 timePickerFragment.show(getFragmentManager(), DIALOG_TAG);
             }
         });
+
         return view;
+    }
+
+    public String getDateString() {
+        String pattern1 = "E,yyyy/MM/dd";
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1, new Locale("en", "US"));
+        return simpleDateFormat1.format(mTask.getDate());
+    }
+
+
+    public String getTimeString() {
+        String pattern = "HH:mm a";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("en", "US"));
+        return simpleDateFormat.format(mTask.getDate());
     }
 
     @Override
@@ -168,19 +194,22 @@ public class AddFragment extends Fragment {
 
         if (requestCode == REQ_DATE_PICKER) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+
             mTask.setDate(date);
-            mDateButton.setText(date.toString());
+            String simpleDate = getDateString();
+            mDateButton.setText(simpleDate);
 
         } else if (requestCode == REQ_TIME_PICKER) {
             Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mTask.setDate(date);
-            mDateButton.setText(date.toString());
 
-            String pattern = "HH:mm a";
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern, new Locale("da", "DK"));
-            String time = simpleDateFormat.format(mTask.getDate());
+            String simpleDate = getDateString();
+            mDateButton.setText(simpleDate);
 
-            mTimeButton.setText(time.toString());
+            String time = getTimeString();
+
+            mTimeButton.setText(time);
         }
     }
+
 }

@@ -2,17 +2,12 @@ package com.example.mohamadreza.taskapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.mohamadreza.taskapp.models.Task;
-import com.example.mohamadreza.taskapp.models.TaskLab;
-
-import java.util.List;
 import java.util.UUID;
 
 public class AddActivity extends AppCompatActivity {
@@ -32,7 +27,7 @@ public class AddActivity extends AppCompatActivity {
 
         UUID currentTaskId = (UUID) getIntent().getSerializableExtra(EXTRA_Task_ID);
 
-        FragmentManager fragmentManager= getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager.findFragmentById(R.id.container_fragment) == null) {
             fragmentManager.beginTransaction()
                     .add(R.id.container_fragment, AddFragment.newInstance(currentTaskId))

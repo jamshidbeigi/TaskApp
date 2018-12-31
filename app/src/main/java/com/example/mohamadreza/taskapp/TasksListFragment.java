@@ -83,10 +83,9 @@ public class TasksListFragment extends Fragment {
             mTaskAdapter.notifyDataSetChanged();
         }
 
-        if(tabPosition==0 && tasks.isEmpty()){
+        if (tabPosition == 0 && tasks.isEmpty()) {
             mImageView.setVisibility(View.VISIBLE);
-        }
-        else
+        } else
             mImageView.setVisibility(View.GONE);
     }
 
