@@ -12,6 +12,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.mohamadreza.taskapp.models.Task;
 import com.example.mohamadreza.taskapp.models.TaskLab;
@@ -39,11 +40,12 @@ public class TasksActivity extends AppCompatActivity {
         mDone = findViewById(R.id.done_tasks_tab);
         mAddButton = findViewById(R.id.floating_add_button);
         mViewPager = findViewById(R.id.task_view_pager);
+
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
                 return TasksListFragment.newInstance(position);
-                }
+            }
 
             @Override
             public int getCount() {
@@ -62,5 +64,5 @@ public class TasksActivity extends AppCompatActivity {
             }
         });
     }
-
 }
+

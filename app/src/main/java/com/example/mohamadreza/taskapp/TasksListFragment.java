@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mohamadreza.taskapp.models.Task;
@@ -27,6 +28,7 @@ public class TasksListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private TaskAdapter mTaskAdapter;
+    private ImageView mImageView;
 
     public static TasksListFragment newInstance(int position) {
         Bundle args = new Bundle();
@@ -44,9 +46,10 @@ public class TasksListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.list_show, container, false);
+        View view = inflater.inflate(R.layout.list_show_recycler_view, container, false);
 
-        mRecyclerView = view.findViewById(R.id.tasks_recycler_view);
+        mImageView = view.findViewById(R.id.imageView_empty);
+        mRecyclerView = view.findViewById(R.id.tasks_recycler_view2);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         updateUI();
         return view;
@@ -79,6 +82,12 @@ public class TasksListFragment extends Fragment {
             mTaskAdapter.setTasks(tasks);
             mTaskAdapter.notifyDataSetChanged();
         }
+
+        if(tabPosition==0 && tasks.isEmpty()){
+            mImageView.setVisibility(View.VISIBLE);
+        }
+        else
+            mImageView.setVisibility(View.GONE);
     }
 
     private class TaskHolder extends RecyclerView.ViewHolder {

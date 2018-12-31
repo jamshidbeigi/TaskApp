@@ -30,9 +30,10 @@ import java.util.UUID;
  */
 public class AddFragment extends Fragment {
 
-    private static final String ARG_TASK_ID="taskId";
-    private static final String ARG_CRIME_ID = "crimeId";
+    private static final String ARG_TASK_ID = "taskId";
     private static final String DIALOG_TAG = "DialogDate";
+    public static final String EXTRA_IS_EMPTY = "com.example.mohamadreza.taskapp.isEmpty";
+
     private static final int REQ_DATE_PICKER = 0;
     private static final int REQ_TIME_PICKER = 1;
 
@@ -69,7 +70,7 @@ public class AddFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         View view = inflater.inflate(R.layout.add_task, container, false);
+        View view = inflater.inflate(R.layout.add_task, container, false);
 
         mTitleField = view.findViewById(R.id.title_edit_text);
         mDescription = view.findViewById(R.id.description_text_view);
@@ -157,6 +158,7 @@ public class AddFragment extends Fragment {
         });
         return view;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,8 +171,7 @@ public class AddFragment extends Fragment {
             mTask.setDate(date);
             mDateButton.setText(date.toString());
 
-        }
-        else if(requestCode == REQ_TIME_PICKER){
+        } else if (requestCode == REQ_TIME_PICKER) {
             Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mTask.setDate(date);
             mDateButton.setText(date.toString());
@@ -182,4 +183,4 @@ public class AddFragment extends Fragment {
             mTimeButton.setText(time.toString());
         }
     }
-    }
+}

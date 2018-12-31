@@ -48,6 +48,7 @@ public class DescriptionActivity extends AppCompatActivity {
         mTime=findViewById(R.id.time_text_view);
         mEdit=findViewById(R.id.button_edit);
         mDelete=findViewById(R.id.button_delete);
+        mDone=findViewById(R.id.button_done);
 
 
         mEdit.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +64,13 @@ public class DescriptionActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TaskLab.getInstance().removeTask(mTask);
                 finish();
+            }
+        });
+
+        mDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
 
